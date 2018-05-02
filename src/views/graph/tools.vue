@@ -1,28 +1,69 @@
 <template>
-  <div id="flow" class="flow">
-    111111111111111111111111111111
+  <div id="tools" class="tools">
+    <ul>
+      <li class="tools-item" v-for="(item, index) in toolItems" :key="index">
+        <div 
+          draggable="true" 
+          @mousedown="selectNode(item)" 
+          @dragstart="dragNode(item)"
+        >
+          {{item.title}}
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-// import FlowHeader from './FlowHeader'
-// import FlowLeftTool from './FlowLeftTool'
-// import FlowRight from './FlowRight'
-// import FlowTopTool from './FlowTopTool'
-// import FlowMainDraw from './FlowMainDraw'
 
-// export default {
-//   name: 'flow',
-//   components: {
-//     FlowHeader,
-//     FlowLeftTool,
-//     FlowRight,
-//     FlowTopTool,
-//     FlowMainDraw
-//   }
-// }
+import { mapMutations, mapState } from 'vuex';
+
+export default {
+  name: 'tools',
+  data(){
+    return {
+      toolItems:[{
+        type: 'start',
+        title: '开始'
+      },{
+        type: 'decision',
+        title: '判断'
+      },{
+        type: 'end',
+        title: '结束'
+      }]
+    }
+  },
+  methods:{
+    selectNode(item){
+      console.log(111111)
+    },
+    dragNode(item){
+      console.log(222222)
+    }
+  }
+}
 </script>
 
 <style lang="scss">
-
+  .tools{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 200px;
+    background: #ccc;
+  }
+  .tools-item{
+    margin-top: 10px;
+    div{
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+      line-height: 60px;
+      text-align: center;
+      border-radius: 4px;
+      background: lightcyan;
+    }
+  }
 </style>

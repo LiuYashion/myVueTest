@@ -21,15 +21,35 @@
           <div class="flt-shape-list" v-show="tool.show">
             <div class="flt-item-box">
               <template v-if="tool.title==='自定义'">
-                <div class="flt-list-item" draggable="true" v-for="(item,index) in userImages" :key="index" :title="item.title" @mousedown="selNode('SvgImage')" @dragstart="dragstart(item)">
+                <div 
+                  class="flt-list-item" 
+                  draggable="true" 
+                  v-for="(item,index) in userImages" 
+                  :key="index" 
+                  :title="item.title" 
+                  @mousedown="selNode('SvgImage')" 
+                  @dragstart="dragstart(item)"
+                >
                   <svg class="flt-list-svg">
                     <svg-image :imgSrc="item"></svg-image>
                   </svg>
                 </div>
               </template>
               <template v-else>
-                <div class="flt-list-item" draggable="true" v-for="(item,index) in tool.listData" :key="index" :title="item.title" @dragstart="selNode(item.type)" @dragend="nodeDragEnd">
-                  <icon :name="item.type" :size="30" transform="translate(0.5,0.5)" />
+                <div 
+                  class="flt-list-item"
+                  draggable="true" 
+                  v-for="(item,index) in tool.listData" 
+                  :key="index" 
+                  :title="item.title" 
+                  @dragstart="selNode(item.type)" 
+                  @dragend="nodeDragEnd"
+                >
+                  <icon 
+                    :name="item.type" 
+                    :size="30" 
+                    transform="translate(0.5,0.5)" 
+                  />
                 </div>
               </template>
             </div>

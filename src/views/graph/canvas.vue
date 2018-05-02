@@ -1,12 +1,12 @@
 <template>
-  <div id="flow" class="flow">
-    111111111111111111111111111111
+  <div id="canvas" class="canvas">
+    
   </div>
 </template>
 
 <script>
-import canvas from './FlowHeader'
-import FlowLeftTool from './FlowLeftTool'
+// import canvas from './FlowHeader'
+// import FlowLeftTool from './FlowLeftTool'
 // import FlowHeader from './FlowHeader'
 // import FlowLeftTool from './FlowLeftTool'
 // import FlowRight from './FlowRight'
@@ -26,5 +26,12 @@ import FlowLeftTool from './FlowLeftTool'
 </script>
 
 <style lang="scss">
-
+  .canvas{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 200px;
+    background: #666;
+  }
 </style>
