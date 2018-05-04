@@ -11,6 +11,10 @@
         </div>
       </li>
     </ul>
+    <div class="debug-info">
+      <div>debug info:</div>
+      <div>{{this.name}}</div>
+    </div>
   </div>
 </template>
 
@@ -34,7 +38,17 @@ export default {
       }]
     }
   },
+  computed:{
+    ...mapState([
+      'latestNode',
+      'name',
+      'age',
+    ])
+  },
   methods:{
+    ...mapMutations([
+      'SET_AGE',
+    ]),
     selectNode(item){
       console.log(111111)
     },
@@ -65,5 +79,8 @@ export default {
       border-radius: 4px;
       background: lightcyan;
     }
+  }
+  .debug-info{
+    padding:20px
   }
 </style>

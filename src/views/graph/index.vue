@@ -6,16 +6,18 @@
 </template>
 
 <script>
+
 import CanvasPaper from './canvas'
 import ToolsBar    from './tools'
-
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 export default {
-  name: 'flow',
+  name: 'graph',
   components: {
     CanvasPaper,
     ToolsBar
   }
 }
+
 </script>
 
 <style lang="scss">
