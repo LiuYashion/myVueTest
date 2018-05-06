@@ -1,6 +1,13 @@
 <template>
   <div id="FlowNodeDarw" class="node-draw" ref="FlowNodeDarw">
-    <flow-node v-for="(item,index) in nodeData" :key="index" :option="item" @nodeDragStart="nodeDragStart" @nodeDragging="nodeDragging" @nodeDragEnd="nodeDragEnd"></flow-node>
+    <flow-node 
+      v-for="(item,index) in nodeData" 
+      :key="index" 
+      :option="item" 
+      @nodeDragStart="nodeDragStart" 
+      @nodeDragging="nodeDragging" 
+      @nodeDragEnd="nodeDragEnd"
+    ></flow-node>
     <flow-ref-line :refLineData="refLineData"></flow-ref-line>
   </div>
 </template>

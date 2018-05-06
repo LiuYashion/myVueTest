@@ -8,14 +8,28 @@
         </div>
       </div>
       <div style="margin:10px">
-        <div class="flt-input-svg" title="添加SVG" @drop.stop.prevent="dropHandle" @dragover.stop.prevent="dragoverHandle">
+        <div 
+          class="flt-input-svg" 
+          title="添加SVG" 
+          @drop.stop.prevent="dropHandle" 
+          @dragover.stop.prevent="dragoverHandle"
+        >
           <div class="flt-input-svg-box">添加SVG</div>
         </div>
       </div>
       <ul>
-        <li class="flt-tool-list" v-for="(tool,index) in searchToolItems" :key="index">
-          <div class="flt-list-tit" @click.stop="tool.show = !tool.show">
-            <icon :name="tool.show?'down-arrow':'up-arrow'" :size="8" class="flt-icon"></icon>
+        <li 
+          class="flt-tool-list" 
+          v-for="(tool,index) in searchToolItems" 
+          :key="index">
+          <div 
+            class="flt-list-tit" 
+            @click.stop="tool.show = !tool.show">
+            <icon 
+              :name="tool.show?'down-arrow':'up-arrow'" 
+              :size="8" 
+              class="flt-icon"
+            ></icon>
             <span>{{tool.title}}</span>
           </div>
           <div class="flt-shape-list" v-show="tool.show">

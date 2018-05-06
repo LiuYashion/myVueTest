@@ -12,8 +12,8 @@
       </li>
     </ul>
     <div class="debug-info">
-      <div>debug info:</div>
-      <div>{{this.name}}</div>
+      <div>debug info</div>
+      <div>当前节点：{{this.latestNode}}</div>
     </div>
   </div>
 </template>
@@ -41,16 +41,15 @@ export default {
   computed:{
     ...mapState([
       'latestNode',
-      'name',
-      'age',
+
     ])
   },
   methods:{
     ...mapMutations([
-      'SET_AGE',
+      'SET_GLOBAL_NODE',
     ]),
     selectNode(item){
-      console.log(111111)
+      this.SET_GLOBAL_NODE(item.type)
     },
     dragNode(item){
       console.log(222222)

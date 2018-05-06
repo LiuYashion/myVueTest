@@ -6,10 +6,27 @@
       <strong>未命名</strong>
     </div>
     <div id="drawContainer" class="draw-wrap">
-      <div id="draw" class="main-bg" :style="{transform:`scale(${drawStyle.zoomRate})`,transformOrigin:`${drawStyle.origin}`}" @drop.prevent="dropHandle" @dragover.stop.prevent @mousedown="drawLineStart" @mousemove="drawingLine" @mouseup="drawLineEnd" @mousewheel.alt.prevent="wheelHandle" @click.stop.prevent="editEnd">
+      <div 
+        id="draw" 
+        class="main-bg" 
+        :style="{transform:`scale(${drawStyle.zoomRate})`,transformOrigin:`${drawStyle.origin}`}" 
+        @drop.prevent="dropHandle" 
+        @dragover.stop.prevent 
+        @mousedown="drawLineStart" 
+        @mousemove="drawingLine" 
+        @mouseup="drawLineEnd" 
+        @mousewheel.alt.prevent="wheelHandle" 
+        @click.stop.prevent="editEnd"
+      >
         <flow-node-draw></flow-node-draw>
         <flow-line-draw></flow-line-draw>
-        <tool-menu :ulStyle="'width:100px;text-align:center'" :visible.sync="visible" :menuData="menuData" @selItme="deleteHandle" :style="{top:menuInfo.top,left:menuInfo.left}"></tool-menu>
+        <tool-menu 
+          :ulStyle="'width:100px;text-align:center'" 
+          :visible.sync="visible" 
+          :menuData="menuData" 
+          @selItme="deleteHandle" 
+          :style="{top:menuInfo.top,left:menuInfo.left}"
+        ></tool-menu>
       </div>
     </div>
   </div>
@@ -83,251 +100,7 @@ export default {
       'lineData',
       'selLineType',
       'drawStyle'
-    ])
-    // arrowStyle() {
-    //   let { width, height, top, left } = this.selNodeInfo;
-    //   let padding = this.arrowPadding;
-    //   let objH = 15;
-    //   let objW = 15;
-    //   width = width / 2;
-    //   height = height / 2;
-    //   let t = {
-    //     top: top - padding - objH / 2 - height + 'px',
-    //     left: left - objW / 2 + 'px'
-    //   };
-    //   let b = {
-    //     top: top + padding + height - objH / 2 + 'px',
-    //     left: left - objW / 2 + 'px'
-    //   };
-    //   let l = {
-    //     top: top - objH / 2 + 'px',
-    //     left: left - width - objH / 2 - padding + 'px'
-    //   };
-    //   let r = {
-    //     top: top - objH / 2 + 'px',
-    //     left: left + width - objH / 2 + padding + 'px'
-    //   };
-    //   return {
-    //     t,
-    //     b,
-    //     l,
-    //     r
-    //   };
-    // },
-    // resizeStyle() {
-    //   let { width, height, top, left } = this.clickInfo;
-    //   let w = width / 2;
-    //   let h = height / 2;
-
-    //   return {
-    //     nw: {
-    //       x: left - w,
-    //       y: top - h
-    //     },
-    //     n: {
-    //       x: left,
-    //       y: top - h
-    //     },
-    //     ne: {
-    //       x: left + w,
-    //       y: top - h
-    //     },
-    //     w: {
-    //       x: left - w,
-    //       y: top
-    //     },
-    //     e: {
-    //       x: left + w,
-    //       y: top
-    //     },
-    //     sw: {
-    //       x: left - w,
-    //       y: top + h
-    //     },
-    //     s: {
-    //       x: left,
-    //       y: top + h
-    //     },
-    //     se: {
-    //       x: left + w,
-    //       y: top + h
-    //     },
-    //     rect: {
-    //       w: width,
-    //       h: height,
-    //       x: left - w,
-    //       y: top - h
-    //     }
-    //   };
-    // }
-  },
-  directives: {
-    // node(el, binding, vnode) {
-    //   // vnode.context 相当于 this
-    //   let _this = vnode.context;
-    //   let x, y, val;
-
-    //   // 获取节点信息
-    //   let getNodeInfo = () => {
-    //     // 防止缩放后元素大小更改故除以缩放比例
-    //     let obj = el.getElementsByTagName('g')[0];
-    //     let w = obj.getBoundingClientRect().width / _this.drawStyle.zoomRate;
-    //     let h = obj.getBoundingClientRect().height / _this.drawStyle.zoomRate;
-    //     let wh = {
-    //       width: w,
-    //       height: h
-    //     };
-    //     let nodeInfo = _this.nodeData[el.id];
-    //     _this.selNodeInfo = Object.assign({}, nodeInfo, wh);
-    //     _this.showArrow = true;
-    //   };
-    //   // 节点文本编辑≠≠
-    //   el.ondblclick = ev => {
-    //     _this.editable = true;
-    //     let editor = el.querySelector('.shape-text');
-    //     el.querySelector('foreignObject').setAttribute('pointer-events', 'all');
-    //     editor.focus();
-    //     let fn = () => {
-    //       let text = editor.innerHTML;
-    //       let result = _this.deepCopy(_this.nodeData[el.id]);
-    //       result.text = text;
-    //       _this.UPDATE_NODE({
-    //         [el.id]: result
-    //       });
-    //       _this.editable = false;
-    //       document.querySelector('.shape-text').removeEventListener('blur', fn);
-    //     };
-    //     document.querySelector('.shape-text').addEventListener('blur', fn);
-    //   };
-    //   // 节点删除相关
-    //   el.oncontextmenu = ev => {
-    //     ev.preventDefault();
-    //     _this.visible = true;
-    //     _this.showArrow = false;
-    //     let x = ev.offsetX;
-    //     let y = ev.offsetY;
-    //     _this.menuInfo.top = `${y}px`;
-    //     _this.menuInfo.left = `${x}px`;
-    //     _this.menuInfo.selType = el.id.replace(/-.*/g, '');
-    //     _this.menuInfo.id = el.id;
-    //   };
-    //   // 移动相关
-    //   el.onmousedown = ev => {
-    //     if (ev.buttons === 2) {
-    //       return;
-    //     }
-    //     _this.selNodeId = _this.nodeData[el.id].type;
-    //     clearTimeout(_this.timer);
-    //     _this.timer = setTimeout(() => {
-    //       _this.isDragging = true;
-
-    //       // 节点移动回调
-    //       let fn = ev => {
-    //         x = ev.offsetX;
-    //         y = ev.offsetY;
-    //         val = `translate(${x},${y})`;
-    //         // el.setAttribute('transform', val)
-    //         _this.selNodeInfo.transform = val;
-    //         _this.drawLineEnd();
-    //       };
-
-    //       // 节点移动结束后更新节点
-    //       let updata = ev => {
-    //         if (_this.isDragging) {
-    //           x = ev.offsetX;
-    //           y = ev.offsetY;
-    //           val = `translate(${x},${y})`;
-
-    //           _this.UPDATE_NODE({
-    //             [el.id]: {
-    //               ..._this.nodeData[el.id],
-    //               transform: val,
-    //               top: y,
-    //               left: x
-    //             }
-    //           });
-    //           getNodeInfo();
-    //         }
-    //         _this.isDragging = false;
-    //         _this.updateLine();
-    //         // 移除画布事件
-    //         document
-    //           .querySelector('#draw')
-    //           .removeEventListener('mousemove', fn);
-    //         document
-    //           .querySelector('#draw')
-    //           .removeEventListener('mouseup', updata);
-    //         document
-    //           .querySelector('#draw')
-    //           .removeEventListener('mouseleave', leaveFn);
-    //       };
-
-    //       // 离开画布后触发的方法
-    //       let leaveFn = ev => {
-    //         if (_this.isDragging) {
-    //           updata(ev);
-    //           _this.showArrow = false;
-    //         }
-    //       };
-
-    //       // 添加画布事件
-    //       document.querySelector('#draw').addEventListener('mousemove', fn);
-    //       document.querySelector('#draw').addEventListener('mouseup', updata);
-    //       document
-    //         .querySelector('#draw')
-    //         .addEventListener('mouseleave', leaveFn);
-    //     }, 200);
-    //   };
-    //   // 选择节点
-    //   el.onclick = () => {
-    //     clearTimeout(_this.timer);
-    //     _this.showResize = true;
-    //     _this.clickElementId = el.id;
-    //     _this.clickInfo = JSON.parse(JSON.stringify(_this.selNodeInfo));
-    //   };
-    //   el.onmouseleave = ev => {
-    //     // _this.selNodeInfo = {}
-    //   };
-    //   // 连接点显示相关
-    //   el.onmouseover = ev => {
-    //     if (_this.isDragging) {
-    //       return;
-    //     }
-    //     if (_this.lineDrawing) {
-    //       _this.arrowPadding = 0;
-    //     } else {
-    //       _this.arrowPadding = 15;
-    //     }
-    //     setTimeout(getNodeInfo(), 0);
-    //     let fn = ev => {
-    //       if (ev.target.tagName !== 'IMG') {
-    //         let x = ev.offsetX;
-    //         let y = ev.offsetY;
-    //         let { top, left, width, height } = _this.selNodeInfo;
-    //         width = width / 2;
-    //         height = height / 2;
-    //         let padding = 40;
-    //         if (
-    //           top - height - padding > y ||
-    //           y > top + height + padding ||
-    //           left - width - padding > x ||
-    //           x > left + width + padding
-    //         ) {
-    //           _this.showArrow = false;
-    //           document
-    //             .querySelector('#draw')
-    //             .removeEventListener('mousemove', fn);
-    //         }
-    //       }
-    //       if (!_this.showArrow) {
-    //         document
-    //           .querySelector('#draw')
-    //           .removeEventListener('mousemove', fn);
-    //       }
-    //     };
-    //     document.querySelector('#draw').addEventListener('mousemove', fn);
-    //   };
-    // },
+    ]),
     line(el, binding, vnode) {
       let _this = vnode.context;
       el.oncontextmenu = ev => {

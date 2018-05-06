@@ -9,7 +9,48 @@ import { cloneDeep } from 'lodash/fp'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    latestNode: '',
+    latestNode: 'null',
+    nodeData:{
+      '$1':{
+        id:'$1',
+        type: 'start',
+        title: '开始',
+        position: {
+          top:302,
+          left: 100
+        },
+        begin:{
+          beginX:0,
+          beginY:0
+        }
+      },
+      '$2':{
+        id:'$2',
+        type: 'decision',
+        title: '判断',
+        position: {
+          top:124,
+          left: 320
+        },
+        begin:{
+          beginX:0,
+          beginY:0
+        }
+      },
+      '$3':{
+        id:'$3',
+        type: 'end',
+        title: '结束',
+        position: {
+          top:120,
+          left: 63
+        },
+        begin:{
+          beginX:0,
+          beginY:0
+        }
+      }
+    },
     name: 'weish',
     age: 22
   },
@@ -19,8 +60,16 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SET_AGE(state, age) {
-      commit(age, age);
+    SET_GLOBAL_NODE(state, type = 'unknown') {
+      state.latestNode = type
+    },
+    UPDATE_NODE(state, item) {
+      state.nodeData = {
+        ...state.nodeData,
+        [item.id]: {
+          ...state.nodeData[item.id]
+        }
+      }
     }
   },
   actions: {

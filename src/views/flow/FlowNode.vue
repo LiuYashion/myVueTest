@@ -1,7 +1,25 @@
 <template>
-  <div class="flow-node" :draggable="nodeInfo.draggable" :style="nodePosition" @dragstart="nodeDragStart(option.id)" @drag="nodeDragging(option.id)" @dragend="nodeDragEnd(option.id)" @mouseenter="mouseEnterNode(option.id)" @mouseleave="mouseLeaveNode">
-    <flow-arrow :nodeId="option.id" :arrowVisible.sync="arrowVisible" @arrowPointEnter="arrowPointEnter" @arrowPointLeave="arrowPointLeave"></flow-arrow>
-    <icon :name="option.type" :size="80" :ref="option.id" style="cursor:move" />
+  <div 
+    class="flow-node" 
+    :draggable="nodeInfo.draggable" 
+    :style="nodePosition" 
+    @dragstart="nodeDragStart(option.id)" 
+    @drag="nodeDragging(option.id)"
+     @dragend="nodeDragEnd(option.id)" 
+     @mouseenter="mouseEnterNode(option.id)" 
+     @mouseleave="mouseLeaveNode">
+    <flow-arrow 
+      :nodeId="option.id" 
+      :arrowVisible.sync="arrowVisible" 
+      @arrowPointEnter="arrowPointEnter" 
+      @arrowPointLeave="arrowPointLeave"
+    ></flow-arrow>
+    <icon 
+      :name="option.type" 
+      :size="80" 
+      :ref="option.id" 
+      style="cursor:move" 
+    />
   </div>
 </template>
 

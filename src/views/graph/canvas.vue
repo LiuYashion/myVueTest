@@ -1,28 +1,93 @@
 <template>
-  <div id="canvas" class="canvas">
+  <div 
+    id="canvas" 
+    class="canvas" 
+
+    @drop.prevent="nodeDrop" 
+
     
+    @dragend="nodeDragEnd" 
+    @dragstart="nodeDragStart" 
+    @dragover.stop.prevent 
+
+    @mousedown="mouseDown" 
+    @mousemove="mouseMove" 
+    @mouseup="mouseUp" 
+    
+    @mouseenter="mouseEnterCanvas" 
+    @mouseleave="mouseLeaveCanvas"
+  >
+    <cube 
+      v-for="item in nodeData" 
+      @nodeDragging="nodeDragging" 
+      :item="item">
+    </cube>
   </div>
 </template>
 
 <script>
-// import canvas from './FlowHeader'
-// import FlowLeftTool from './FlowLeftTool'
-// import FlowHeader from './FlowHeader'
-// import FlowLeftTool from './FlowLeftTool'
-// import FlowRight from './FlowRight'
-// import FlowTopTool from './FlowTopTool'
-// import FlowMainDraw from './FlowMainDraw'
 
-// export default {
-//   name: 'flow',
-//   components: {
-//     FlowHeader,
-//     FlowLeftTool,
-//     FlowRight,
-//     FlowTopTool,
-//     FlowMainDraw
-//   }
-// }
+import { mapMutations, mapState } from 'vuex';
+import Cube from './components/cube';
+
+export default {
+  name: 'canvas-paper',
+  data(){
+    return {
+
+    }
+  },
+  components:{
+    Cube
+  },
+  computed:{
+    ...mapState([
+      'nodeData',
+    ])
+  },
+  methods:{
+    ...mapMutations([
+      'UPDATE_NODE',
+    ]),
+    nodeDrop(){
+      console.log(6543)
+    },
+    mouseDown(){
+      // console.log(6666)
+    },
+    mouseMove(){
+      // console.log(7777)
+    },
+    mouseUp(){
+      // console.log(8888)
+    },
+    nodeDragStart(){
+      // console.log(9999)
+    },
+    nodeDragging(data, type){
+      
+      var { item, event } = data
+      var { clientX, clientY } = event
+      var { beginX, beginY } = item.begin
+
+
+      item.position.top  = clientY - beginY
+      item.position.left = clientX - beginX - 200
+
+      this.UPDATE_NODE(item)
+
+    },
+    nodeDragEnd(){
+      
+    },
+    mouseEnterCanvas(){
+      //console.log(3333)
+    },
+    mouseLeaveCanvas(){
+      //console.log(4444)
+    }
+  }
+}
 </script>
 
 <style lang="scss">
