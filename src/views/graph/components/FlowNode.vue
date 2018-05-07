@@ -44,7 +44,7 @@ export default {
     ]),
     nodeDragging(item){
       //console.log(event)
-     
+      console.log('cccccc')
       this.$emit('nodeDragging', {item, event});
     },
     xxxxxxxxx(item){
@@ -60,6 +60,8 @@ export default {
 <style lang="scss">
   .cube{
     width: 80px;
+    z-index:30;
+    border-radius:4px;
     position: absolute;
     text-align: center;
     line-height: 40px;

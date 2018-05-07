@@ -17,18 +17,32 @@
     @mouseenter="mouseEnterCanvas" 
     @mouseleave="mouseLeaveCanvas"
   >
-    <cube 
-      v-for="item in nodeData" 
-      @nodeDragging="nodeDragging" 
-      :item="item">
-    </cube>
+  
+    <div>
+      <flow-node 
+        v-for="item in nodeData" 
+        @nodeDragging="nodeDragging" 
+        :item="item">
+      </flow-node>
+    </div>
+
+    <div>
+      <flow-line 
+        v-for="item in linkData" 
+        @nodeDragging="nodeDragging" 
+        :item="item">
+      </flow-line>
+    </div>
+
   </div>
 </template>
 
 <script>
 
 import { mapMutations, mapState } from 'vuex';
-import Cube from './components/cube';
+
+import FlowNode from './components/FlowNode';
+import FlowLine from './components/FlowLine';
 
 export default {
   name: 'canvas-paper',
@@ -38,11 +52,13 @@ export default {
     }
   },
   components:{
-    Cube
+    FlowNode,
+    FlowLine
   },
   computed:{
     ...mapState([
       'nodeData',
+      'linkData'
     ])
   },
   methods:{

@@ -16,8 +16,8 @@ export default new Vuex.Store({
         type: 'start',
         title: '开始',
         position: {
-          top:302,
-          left: 100
+          top:50,
+          left: 50
         },
         begin:{
           beginX:0,
@@ -29,8 +29,8 @@ export default new Vuex.Store({
         type: 'decision',
         title: '判断',
         position: {
-          top:124,
-          left: 320
+          top:700,
+          left: 400
         },
         begin:{
           beginX:0,
@@ -42,8 +42,8 @@ export default new Vuex.Store({
         type: 'end',
         title: '结束',
         position: {
-          top:120,
-          left: 63
+          top:400,
+          left:800
         },
         begin:{
           beginX:0,
@@ -51,9 +51,22 @@ export default new Vuex.Store({
         }
       }
     },
+    linkData:{
+      'L&001':{
+        begin:'$1',
+        end:'$2',
+        content:'测试连线'
+      },
+      'L&002':{
+        begin:'$1',
+        end:'$3',
+        content:'测试连线'
+      },
+    },
     name: 'weish',
     age: 22
   },
+  
   getters: {
     personInfo(state) {
       return `My name is ${state.name}, I am ${state.age}`;
