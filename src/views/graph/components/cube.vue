@@ -1,10 +1,13 @@
 <template>
   <div 
-    class="link-box"
+    class="cube"
+    draggable="true"
     :style="nodePosition"
     
+    @dragstart="xxxxxxxxx(item)"
+    @dragend="nodeDragging(item)"
   >
-    {{item.content}}
+    {{item.type}}
   </div>
 </template>
 
@@ -26,34 +29,41 @@ export default {
   },
   computed:{
     ...mapState([
-      'nodeData',
-      'linkData'
+      'latestNode',
     ]),
-    nodePosition(item){
-
+    nodePosition(){
       return {
         top:`${this.item.position.top}px`,
-        left:`${this.item.position.left}px`,
-        width:`${200}px`,
-        height:`${200}px`
+        left:`${this.item.position.left}px`
       }
     }
   },
   methods:{
     ...mapMutations([
       'SET_GLOBAL_NODE',
-    ])
+    ]),
+    nodeDragging(item){
+      //console.log(event)
+     
+      this.$emit('nodeDragging', {item, event});
+    },
+    xxxxxxxxx(item){
+      item.begin = {
+        beginX: event.offsetX, 
+        beginY: event.offsetY
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
-  .link-box{
+  .cube{
     width: 80px;
     position: absolute;
     text-align: center;
     line-height: 40px;
     height: 40px;
-    background: #333;
+    background: lightgoldenrodyellow;
   }
 </style>

@@ -11,7 +11,7 @@ export default new Vuex.Store({
   state: {
     latestNode: 'null',
     nodeData:{
-      'N&001':{
+      '$1':{
         id:'$1',
         type: 'start',
         title: '开始',
@@ -24,7 +24,7 @@ export default new Vuex.Store({
           beginY:0
         }
       },
-      'N&002':{
+      '$2':{
         id:'$2',
         type: 'decision',
         title: '判断',
@@ -37,7 +37,7 @@ export default new Vuex.Store({
           beginY:0
         }
       },
-      'N&003':{
+      '$3':{
         id:'$3',
         type: 'end',
         title: '结束',
@@ -49,18 +49,6 @@ export default new Vuex.Store({
           beginX:0,
           beginY:0
         }
-      }
-    },
-    linkData:{
-      'L&0123':{
-        begin:'N&001',
-        end:'N&002',
-        content:'我是连线'
-      },
-      'L&0522':{
-        begin:'N&001',
-        end:'N&003',
-        content:'我是连线'
       }
     },
     name: 'weish',
