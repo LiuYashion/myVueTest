@@ -70,10 +70,10 @@ export default {
   .tools-item{
     margin-top: 10px;
     div{
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 40px;
       margin: 0 auto;
-      line-height: 60px;
+      line-height: 40px;
       text-align: center;
       border-radius: 4px;
       background: lightcyan;
