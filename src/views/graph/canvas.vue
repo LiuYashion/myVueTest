@@ -86,7 +86,6 @@ export default {
       var { clientX, clientY } = event
       var { beginX, beginY } = item.begin
 
-
       item.position.top  = clientY - beginY
       item.position.left = clientX - beginX - 200
 
