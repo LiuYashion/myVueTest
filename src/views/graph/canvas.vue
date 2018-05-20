@@ -2,10 +2,8 @@
   <div 
     id="canvas" 
     class="canvas" 
-
     @drop.prevent="nodeDrop" 
 
-    
     @dragend="nodeDragEnd" 
     @dragstart="nodeDragStart" 
     @dragover.stop.prevent 

@@ -55,11 +55,16 @@ export default new Vuex.Store({
       'L&001':{
         begin:'$1',
         end:'$2',
-        content:'测试连线'
+        content:'测试连线1'
       },
       'L&002':{
         begin:'$1',
         end:'$3',
+        content:'测试连线'
+      },
+      'L&003':{
+        begin:'$3',
+        end:'$2',
         content:'测试连线'
       },
     },

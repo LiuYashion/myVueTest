@@ -4,8 +4,8 @@
     draggable="true"
     :style="nodePosition"
     
-    @dragstart="xxxxxxxxx(item)"
-    @dragend="nodeDragging(item)"
+    @dragstart="whenDragStart(item)"
+    @drag="whenDragging(item)"
   >
     {{item.type}}
   </div>
@@ -42,12 +42,10 @@ export default {
     ...mapMutations([
       'SET_GLOBAL_NODE',
     ]),
-    nodeDragging(item){
-      //console.log(event)
-      console.log('cccccc')
+    whenDragging(item){
       this.$emit('nodeDragging', {item, event});
     },
-    xxxxxxxxx(item){
+    whenDragStart(item){
       item.begin = {
         beginX: event.offsetX, 
         beginY: event.offsetY
