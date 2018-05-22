@@ -52,7 +52,12 @@ export default {
       this.SET_GLOBAL_NODE(item.type)
     },
     dragNode(item){
-      console.log(222222)
+      item.begin = {
+        beginX: event.offsetX, 
+        beginY: event.offsetY
+      }
+      this.SET_GLOBAL_NODE(item)
+      event.dataTransfer.setData('Text', 'add');
     }
   }
 }
@@ -70,10 +75,10 @@ export default {
   .tools-item{
     margin-top: 10px;
     div{
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 40px;
       margin: 0 auto;
-      line-height: 60px;
+      line-height: 40px;
       text-align: center;
       border-radius: 4px;
       background: lightcyan;

@@ -39,6 +39,9 @@
 
 import { mapMutations, mapState } from 'vuex';
 
+
+import { getRandomID } from './utils';
+
 import FlowNode from './components/FlowNode';
 import FlowLine from './components/FlowLine';
 
@@ -56,15 +59,50 @@ export default {
   computed:{
     ...mapState([
       'nodeData',
-      'linkData'
+      'linkData',
+      'latestNode'
     ])
   },
   methods:{
     ...mapMutations([
       'UPDATE_NODE',
+      'ADD_NODE'
     ]),
-    nodeDrop(){
-      console.log(6543)
+    nodeDrop(ev){
+
+      let info = event.dataTransfer.getData('Text')
+
+      
+      // 新增节点
+      if( info === 'add' ){
+
+        let item = this.latestNode
+
+        var { beginX, beginY } = item.begin
+        var clientX = ev.clientX
+        var clientY = ev.clientY
+        
+        this.ADD_NODE({
+          id:`N&${getRandomID()}`,
+          begin: item.begin,
+          type: item.type,
+          title: item.type,
+          position: {
+            top: clientY - beginY,
+            left: clientX - beginX - 200
+          }
+        })
+        
+      } else {
+
+        
+
+      }
+      
+      
+
+
+      
     },
     mouseDown(){
       // console.log(6666)

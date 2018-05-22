@@ -11,8 +11,8 @@ export default new Vuex.Store({
   state: {
     latestNode: 'null',
     nodeData:{
-      '$1':{
-        id:'$1',
+      'N&1':{
+        id:'N&1',
         type: 'start',
         title: '开始',
         position: {
@@ -24,8 +24,8 @@ export default new Vuex.Store({
           beginY:0
         }
       },
-      '$2':{
-        id:'$2',
+      'N&2':{
+        id:'N&2',
         type: 'decision',
         title: '判断',
         position: {
@@ -37,8 +37,8 @@ export default new Vuex.Store({
           beginY:0
         }
       },
-      '$3':{
-        id:'$3',
+      'N&3':{
+        id:'N&3',
         type: 'end',
         title: '结束',
         position: {
@@ -53,18 +53,18 @@ export default new Vuex.Store({
     },
     linkData:{
       'L&001':{
-        begin:'$1',
-        end:'$2',
+        begin:'N&1',
+        end:'N&2',
         content:'测试连线1'
       },
       'L&002':{
-        begin:'$1',
-        end:'$3',
+        begin:'N&1',
+        end:'N&3',
         content:'测试连线'
       },
       'L&003':{
-        begin:'$3',
-        end:'$2',
+        begin:'N&3',
+        end:'N&2',
         content:'测试连线'
       },
     },
@@ -88,6 +88,15 @@ export default new Vuex.Store({
           ...state.nodeData[item.id]
         }
       }
+    },
+    ADD_NODE(state, item) {
+      state.nodeData = {
+        ...state.nodeData,
+        [item.id]: item
+      }
+    },
+    DELETE_NODE(state, item) {
+      
     }
   },
   actions: {

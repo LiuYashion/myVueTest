@@ -119,8 +119,6 @@ export default {
 
       }
 
-      console.log(_y)
-
       switch (`${XType}/${YType}`) {
         case 'RIGHT/TOP':
           Config = {
