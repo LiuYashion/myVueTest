@@ -16,20 +16,13 @@
     @mouseleave="mouseLeaveCanvas"
   >
   
-    <div>
-      <flow-node 
-        v-for="item in nodeData" 
-        @nodeDragging="nodeDragging" 
-        :item="item">
-      </flow-node>
+    <div v-for="item in nodeData" >
+      <flow-node  @nodeDragging="nodeDragging" :item="item"></flow-node>
+      
     </div>
 
     <div>
-      <flow-line 
-        v-for="item in linkData" 
-        @nodeDragging="nodeDragging" 
-        :item="item">
-      </flow-line>
+      <flow-line v-for="item in linkData" @nodeDragging="nodeDragging" :item="item"></flow-line>
     </div>
 
   </div>
@@ -42,8 +35,10 @@ import { mapMutations, mapState } from 'vuex';
 
 import { getRandomID } from './utils';
 
-import FlowNode from './components/FlowNode';
-import FlowLine from './components/FlowLine';
+import FlowNode  from './components/FlowNode';
+import FlowLine  from './components/FlowLine';
+import FlowArrow from './components/FlowArrow';
+
 
 export default {
   name: 'canvas-paper',
@@ -54,7 +49,8 @@ export default {
   },
   components:{
     FlowNode,
-    FlowLine
+    FlowLine,
+    FlowArrow
   },
   computed:{
     ...mapState([

@@ -1,12 +1,12 @@
 <template>
   <div >
+    
     <div 
       class="cube"
       draggable="true"
       :style="nodePosition"
       
-      @mouseenter="mouseEnterNode" 
-      @mouseleave="mouseLeaveNode"
+      @click="mouseEnterNode" 
 
       @dragstart="whenDragStart(item)"
       @drag="whenDragging(item)"
@@ -21,6 +21,7 @@
     >
       111
     </div>
+
   </div>
 </template>
 
@@ -45,14 +46,12 @@ export default {
       'latestNode',
     ]),
     nodePosition(){
-      console.log(666, this.item)
       return {
         top:`${this.item.position.top}px`,
         left:`${this.item.position.left}px`
       }
     },
     toolPosition(){
-      console.log(666, this.item)
       return {
         top:`${this.item.position.top}px`,
         left:`${this.item.position.left + 90}px`
@@ -74,10 +73,7 @@ export default {
       this.SET_GLOBAL_NODE(item)
     },
     mouseEnterNode(id) {
-      this.toolVisible = true;
-    },
-    mouseLeaveNode() {
-      this.toolVisible = false;
+      this.toolVisible = !this.toolVisible;
     }
   }
 }
@@ -96,6 +92,7 @@ export default {
   }
   .cube-box{
     position:absolute;
+    z-index:30;
     width:40px;
     height:40px;
     background:#333;
