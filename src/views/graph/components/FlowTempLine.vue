@@ -1,6 +1,6 @@
 <template>
   <div class="flow-line" draggable="true" :style="nodeStyles">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg" >
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg1" >
       <defs>
         <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="3" orient="auto" markerUnits="strokeWidth">
           <path d="M 0 0 L 9 4 L 0 9  L 3 4" style="fill:#fff;" transform="scale(0.7)"></path>
@@ -57,14 +57,16 @@ export default {
       let { begin, end } = this.item
 
       let _beginNode = this.nodeData[begin].position
-      let _endNode   = this.nodeData[end].position
+      let _endNode   = end
 
-      let XType = (_endNode.left - _beginNode.left)  > 0 ? 'RIGHT' : 'LEFT'
-      let YType = (_endNode.top  - _beginNode.top)   > 0 ? 'BOTTOM' : 'TOP'
+      let XType = (_endNode.left - _beginNode.left )  > 0 ? 'RIGHT' : 'LEFT'
+      let YType = (_endNode.top  - _beginNode.top )   > 0 ? 'BOTTOM' : 'TOP'
       
       let _width  = Math.abs(_endNode.left - _beginNode.left)
       let _height = Math.abs(_endNode.top  - _beginNode.top)
       
+      
+
       let _w = _width   // 相对x作差即为宽度
       let _h = _height   // 相对x作差即为高度
 
@@ -74,7 +76,7 @@ export default {
 
       
 
-      let operator   = 50
+      let operator   = 30
 
       let proportion1 = this.toDouble(_h/_w)
       let proportion2 = this.toDouble(_w/_h)
@@ -123,33 +125,53 @@ export default {
         case 'RIGHT/TOP':
           Config = {
             _x1:  `${_x1}px`,
-            _y1:  `${_y2}px`,
-            _x2:  `${_x2}px`,
-            _y2:  `${_y1}px`,
+            _y1:  `${_y2 + 20}px`,
+            top:  `${_y - 20}px`,
+            left: `${_x}px`,
+
+            _x2:  `${_x2 - 40}px`,
+            _y2:  `${_y1 + 0}px`,
+            width:  `${_w - 40}px`,
+            height: `${_h + 20}px`,
           }
           break;
         case 'RIGHT/BOTTOM':
           Config = {
             _x1:  `${_x1}px`,
             _y1:  `${_y1}px`,
-            _x2:  `${_x2}px`,
-            _y2:  `${_y2}px`,
+            top:  `${_y}px`,
+            left: `${_x}px`,
+
+            _x2:  `${_x2 - 40}px`,
+            _y2:  `${_y2 - 20}px`,
+            width:  `${_w - 40}px`,
+            height: `${_h - 20}px`,
           }
           break;
         case 'LEFT/TOP':
           Config = {
-            _x1:  `${_x2}px`,
-            _y1:  `${_y2}px`,
+            _x1:  `${_x2+40}px`,
+            _y1:  `${_y2+20}px`,
+            top:  `${_y-20}px`,
+            left: `${_x-40}px`,
+
             _x2:  `${_x1}px`,
             _y2:  `${_y1}px`,
+            width:  `${_w+40}px`,
+            height: `${_h+20}px`,
           }
           break;
         case 'LEFT/BOTTOM':
           Config = {
-            _x1:  `${_x2}px`,
-            _y1:  `${_y1}px`,
+            _x1:  `${_x2+40}px`,
+            _y1:  `${_y1+10}px`,
+            top:  `${_y-0}px`,
+            left: `${_x-40}px`,
+
             _x2:  `${_x1}px`,
-            _y2:  `${_y2}px`,
+            _y2:  `${_y2-20}px`,
+            width:  `${_w+40}px`,
+            height: `${_h-20}px`,
           }
           break;
       }
@@ -195,8 +217,9 @@ export default {
     right:50%;
     bottom:50%;
   }
-  .svg{
+  .svg1{
     position: absolute;
+
     left: 0;
     top: 0;
     width:100%;

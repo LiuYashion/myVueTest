@@ -1,26 +1,19 @@
 <template>
-  <div >
-    
-    <div 
-      class="cube"
-      draggable="true"
-      :style="nodePosition"
-      
-      @click="mouseEnterNode" 
+  <div>
 
-      @dragstart="whenDragStart(item)"
-      @drag="whenDragging(item)"
-    >
-      {{item.type}}
-    </div>
+    <flow-block  
+      @arrowPointEnter="arrowPointEnter"
+      @arrowPointLeave="arrowPointLeave" 
+      @nodeDragging="nodeDragging" 
+      :item="item"
+    ></flow-block>
 
-    <div 
-      class="cube-box"
-      :style="toolPosition"
-      v-if="toolVisible"
-    >
-      111
-    </div>
+    <flow-arrow 
+      @arrowPointEnter="arrowPointEnter"
+      @arrowPointLeave="arrowPointLeave" 
+      v-if="toolVisisable"
+      :item="item"
+    ></flow-arrow>
 
   </div>
 </template>
@@ -29,11 +22,17 @@
 
 import { mapMutations, mapState } from 'vuex';
 
+import { getRandomID } from '../utils';
+
+import FlowBlock  from './FlowBlock';
+import FlowArrow  from './FlowArrow';
+
+
 export default {
-  name: 'tools',
+  name: 'canvas-paper',
   data(){
     return {
-      toolVisible: false
+      toolVisisable: false
     }
   },
   props:{
@@ -41,61 +40,75 @@ export default {
       type: Object
     }
   },
+  components:{
+    FlowBlock,
+    FlowArrow
+  },
   computed:{
     ...mapState([
-      'latestNode',
-    ]),
-    nodePosition(){
-      return {
-        top:`${this.item.position.top}px`,
-        left:`${this.item.position.left}px`
-      }
-    },
-    toolPosition(){
-      return {
-        top:`${this.item.position.top}px`,
-        left:`${this.item.position.left + 90}px`
-      }
-    },
+      'nodeData',
+      'linkData',
+      'latestNode'
+    ])
   },
   methods:{
     ...mapMutations([
-      'SET_GLOBAL_NODE',
+      'UPDATE_NODE',
+      'ADD_NODE'
     ]),
-    whenDragging(item){
-      this.$emit('nodeDragging', {item, event});
+    arrowPointEnter() {
+      this.toolVisisable = true
     },
-    whenDragStart(item){
-      item.begin = {
-        beginX: event.offsetX, 
-        beginY: event.offsetY
-      }
-      this.SET_GLOBAL_NODE(item)
+    arrowPointLeave() {
+      this.toolVisisable = false
     },
-    mouseEnterNode(id) {
-      this.toolVisible = !this.toolVisible;
+    nodeDrop(ev){
+      console.log('?????????')
+    },
+    mouseDown(){
+      // console.log(6666)
+    },
+    mouseMove(){
+      // console.log(7777)
+    },
+    mouseUp(){
+      // console.log(8888)
+    },
+    nodeDragStart(){
+      // console.log(9999)
+    },
+    nodeDragging(data, type){
+      
+      var { item, event } = data
+      var { clientX, clientY } = event
+      var { beginX, beginY } = item.begin
+
+      item.position.top  = clientY - beginY
+      item.position.left = clientX - beginX - 200
+
+      this.UPDATE_NODE(item)
+
+    },
+    nodeDragEnd(){
+      
+    },
+    mouseEnterCanvas(){
+      //console.log(3333)
+    },
+    mouseLeaveCanvas(){
+      //console.log(4444)
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .cube{
-    width: 80px;
-    z-index:30;
-    border-radius:4px;
+  .canvas{
     position: absolute;
-    text-align: center;
-    line-height: 40px;
-    height: 40px;
-    background: lightgoldenrodyellow;
-  }
-  .cube-box{
-    position:absolute;
-    z-index:30;
-    width:40px;
-    height:40px;
-    background:#333;
-    border-radius:4px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 200px;
+    background: #666;
   }
 </style>

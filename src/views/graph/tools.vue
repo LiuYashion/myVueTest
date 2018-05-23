@@ -13,7 +13,7 @@
     </ul>
     <div class="debug-info">
       <div>debug info</div>
-      <div>当前节点：{{this.latestNode}}</div>
+      <div>鼠标状态：{{this.mouseState}}</div>
     </div>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
   computed:{
     ...mapState([
       'latestNode',
-
+      'mouseState'
     ])
   },
   methods:{

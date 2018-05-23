@@ -10,14 +10,23 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     latestNode: 'null',
+    mouseState:'Null',
+    tempLink:{
+      begin: 'N&1',
+      end:{
+        top: 500,
+        left: 500
+      },
+      content:'xxxxxxxx'
+    },
     nodeData:{
       'N&1':{
         id:'N&1',
         type: 'start',
         title: '开始',
         position: {
-          top:50,
-          left: 50
+          top:90,
+          left:90
         },
         begin:{
           beginX:0,
@@ -97,6 +106,9 @@ export default new Vuex.Store({
     },
     DELETE_NODE(state, item) {
       
+    },
+    SET_TEMP_LINK(state, link){
+      state.tempLink = link
     }
   },
   actions: {

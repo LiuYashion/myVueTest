@@ -1,20 +1,19 @@
 <template>
-  <div class='cube-wrap'>
-    <div 
-      class='cube-box'
-      :style="nodePosition"  
+  <div 
+      class="cube" 
+      draggable="true" 
+      :style="nodePosition"
+ 
+      @dragstart="whenDragStart(item)" 
+      @drag="whenDragging(item)" 
+
       @mouseover="arrowPointEnter"
       @mouseleave="arrowPointLeave" 
-      @drag="nodeDrag" 
-      @dragend="nodeDragEnd" 
 
-      @dragstart="nodeDragStart" 
-      @mousedown="mouseDown"
-      
-      draggable="true"
+      @mouseup.stop="addLinkMouseUp" 
     >
-    </div> 
-  </div>
+      {{item.type}}
+    </div>
 </template>
 
 <script>
@@ -25,9 +24,7 @@ export default {
   name: 'tools',
   data(){
     return {
-      toolVisible: false,
-      offsetX:0,
-      offsetY:0
+      toolVisible: false
     }
   },
   props:{
@@ -38,25 +35,23 @@ export default {
   computed:{
     ...mapState([
       'latestNode',
-      'mouseState'
     ]),
     nodePosition(){
       return {
         top:`${this.item.position.top}px`,
-        left:`${this.item.position.left + 80}px`
+        left:`${this.item.position.left}px`
       }
     },
     toolPosition(){
       return {
         top:`${this.item.position.top}px`,
-        left:`${this.item.position.left + 80}px`
+        left:`${this.item.position.left + 90}px`
       }
     },
   },
   methods:{
     ...mapMutations([
       'SET_GLOBAL_NODE',
-      'SET_TEMP_LINK'
     ]),
     whenDragging(item){
       this.$emit('nodeDragging', {item, event});
@@ -74,40 +69,8 @@ export default {
     arrowPointLeave() {
       this.$emit('arrowPointLeave');
     },
-    nodeDrag(){
-      //console.log(this.item.id, 11111111111111)
-      var { clientX, clientY } = event
-
-      this.SET_TEMP_LINK({
-        begin: this.item.id,
-        end:{
-          top: clientY,
-          left: clientX - 200
-        },
-        content:'?????'
-      })
-      
-    },
-    mouseDown(){
-      this.offsetX = event.offsetX
-      this.offsetY = event.offsetY
-    },
-    nodeDragStart(){
-      console.log(9999)
-    },
-    nodeDragEnd(){
-      console.log(7777)
-    },
-
-    
-    addLinkMouseDown(){
-      // this.SET_MOUSESTATE('Linking')
-    },
-    addLinkMouseMove(){
-      
-    },
     addLinkMouseUp(){
-      // this.SET_MOUSESTATE('Null')
+      console.log('松开鼠标')
     }
   }
 }
@@ -126,18 +89,10 @@ export default {
   }
   .cube-box{
     position:absolute;
-    width:10px;
-    height:10px;
-    background:#c1daf5;
+    z-index:30;
+    width:40px;
+    height:40px;
+    background:#333;
     border-radius:4px;
-    li{
-      background:#fae1d2;
-      height:20px;
-      margin:5px 5px;
-      cursor:pointer;
-    }
-  }
-  .cube-wrap{
-    margin-left:20px;
   }
 </style>
