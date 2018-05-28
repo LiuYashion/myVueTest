@@ -74,6 +74,7 @@ export default {
       console.log('松开鼠标')
     },
     nodeDrop(){
+      console.log('~~~~~~')
       event.dataTransfer.setData('dropType', 'addLink');
     }
   }

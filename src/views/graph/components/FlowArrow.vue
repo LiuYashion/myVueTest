@@ -98,7 +98,7 @@ export default {
     nodeDragEnd(){
       console.log('----->777')
       let cont = event.dataTransfer.getData('dropType')
-      console.log(cont)
+      console.log(999, cont)
       //
     },
 
