@@ -70,12 +70,7 @@ export default new Vuex.Store({
         begin:'N&1',
         end:'N&3',
         content:'测试连线'
-      },
-      'L&003':{
-        begin:'N&3',
-        end:'N&2',
-        content:'测试连线'
-      },
+      }
     },
     name: 'weish',
     age: 22

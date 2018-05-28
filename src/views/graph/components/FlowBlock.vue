@@ -3,7 +3,8 @@
       class="cube" 
       draggable="true" 
       :style="nodePosition"
- 
+
+      @drop.stop="nodeDrop" 
       @dragstart="whenDragStart(item)" 
       @drag="whenDragging(item)" 
 
@@ -71,6 +72,9 @@ export default {
     },
     addLinkMouseUp(){
       console.log('松开鼠标')
+    },
+    nodeDrop(){
+      event.dataTransfer.setData('dropType', 'addLink');
     }
   }
 }
