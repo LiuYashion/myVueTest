@@ -2,8 +2,8 @@
   <div class="flow-line" draggable="true" :style="nodeStyles">
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg1" >
       <defs>
-        <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="3" orient="auto" markerUnits="strokeWidth">
-          <path d="M 0 0 L 9 4 L 0 9  L 3 4" style="fill:#fff;" transform="scale(0.7)"></path>
+        <marker id="markerArrow2" markerWidth="13" markerHeight="13" refX="2" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M 0 0 L 9 4 L 0 9  L 3 4" style="fill:#999;" transform="scale(0.7)"></path>
         </marker>
       </defs>
       <line 
@@ -11,8 +11,8 @@
         :y1="nodeStyles._y1"  
         :x2="nodeStyles._x2"
         :y2="nodeStyles._y2" 
-        style="stroke:#fff;stroke-width:2" 
-        marker-end='url(#markerArrow)'
+        style="stroke:#999;stroke-width:2" 
+        marker-end='url(#markerArrow2)'
       />
     </svg>
 

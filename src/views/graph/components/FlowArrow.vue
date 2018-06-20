@@ -93,10 +93,13 @@ export default {
       this.offsetY = event.offsetY
     },
     nodeDragStart(){
-      console.log(9999)
+      console.log('----->999')
     },
     nodeDragEnd(){
-      console.log(7777)
+      console.log('----->777')
+      let cont = event.dataTransfer.getData('dropType')
+      console.log(999, cont)
+      //
     },
 
     
