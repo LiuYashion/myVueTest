@@ -12,70 +12,75 @@ export default new Vuex.Store({
     latestNode: 'null',
     mouseState:'Null',
     tempLink:{
-      begin: 'N&1',
-      end:{
-        top: 500,
-        left: 500
-      },
-      content:'xxxxxxxx'
+      // begin: 'N&1',
+      // end:{
+      //   top: 50,
+      //   left: 300
+      // },
+      // content:'xxxxxxxx'
     },
     nodeData:{
       'N&1':{
-        id:'N&1',
+        id: 'N&1',
         type: 'start',
         title: '开始',
-        position: {
-          top:90,
-          left:90
-        },
-        begin:{
-          beginX:0,
-          beginY:0
-        }
+        position: { top:100, left:100 },
+        begin: { beginX:0,beginY:0 }
       },
       'N&2':{
-        id:'N&2',
-        type: 'decision',
-        title: '判断',
-        position: {
-          top:700,
-          left: 400
-        },
-        begin:{
-          beginX:0,
-          beginY:0
-        }
+        id: 'N&2',
+        type: 'start',
+        title: '开始',
+        position: { top:600, left:100 },
+        begin: { beginX:0,beginY:0 }
       },
       'N&3':{
-        id:'N&3',
-        type: 'end',
-        title: '结束',
-        position: {
-          top:400,
-          left:800
-        },
-        begin:{
-          beginX:0,
-          beginY:0
-        }
-      }
+        id: 'N&3',
+        type: 'start',
+        title: '开始',
+        position: { top:350, left:350 },
+        begin: { beginX:0,beginY:0 }
+      },
+      'N&4':{
+        id: 'N&4',
+        type: 'start',
+        title: '开始',
+        position: { top:100, left:600 },
+        begin: { beginX:0,beginY:0 }
+      },
+      'N&5':{
+        id: 'N&5',
+        type: 'start',
+        title: '开始',
+        position: { top:600, left:600 },
+        begin: { beginX:0,beginY:0 }
+      },
     },
     linkData:{
-      'L&001':{
-        begin:'N&1',
-        end:'N&2',
-        content:'测试连线1'
+      // 'L&001':{
+      //   begin:'N&1', end:'N&2', content:''
+      // },
+      // 'L&002':{
+      //   begin:'N&2', end:'N&5', content:''
+      // },
+      // 'L&003':{
+      //   begin:'N&5', end:'N&4', content:''
+      // },
+      // 'L&004':{
+      //   begin:'N&4', end:'N&1', content:''
+      // },
+      // 'L&005':{
+      //   begin:'N&3', end:'N&1', content:''
+      // },
+      // 'L&006':{
+      //   begin:'N&3', end:'N&2', content:''
+      // },
+      'L&007':{
+        begin:'N&3', end:'N&4', content:''
       },
-      'L&002':{
-        begin:'N&1',
-        end:'N&3',
-        content:'测试连线'
-      },
-      'L&003':{
-        begin:'N&3',
-        end:'N&2',
-        content:'测试连线'
-      },
+      // 'L&008':{
+      //   begin:'N&3', end:'N&5', content:''
+      // },
     },
     name: 'weish',
     age: 22
