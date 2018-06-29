@@ -12,12 +12,12 @@ export default new Vuex.Store({
     latestNode: 'null',
     mouseState:'Null',
     tempLink:{
-      // begin: 'N&1',
-      // end:{
-      //   top: 50,
-      //   left: 300
-      // },
-      // content:'xxxxxxxx'
+      begin: 'N&1',
+      end:{
+        top: 50,
+        left: 300
+      },
+      content:'xxxxxxxx'
     },
     nodeData:{
       'N&1':{

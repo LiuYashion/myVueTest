@@ -16,17 +16,20 @@
     @mouseleave="mouseLeaveCanvas"
   >
 
+    <!-- 节点 -->
     <flow-node 
       v-for="item in nodeData" 
       :item="item"
     ></flow-node>
     
+    <!-- 连线 -->
     <flow-line 
       v-for="item in linkData" 
       @nodeDragging="nodeDragging" 
       :item="item"
     ></flow-line>
     
+    <!-- 拖拽连线 -->
     <flow-temp-line
       @nodeDragging="nodeDragging" 
       :item="tempLink"

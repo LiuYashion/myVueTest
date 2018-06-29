@@ -59,14 +59,13 @@ export default {
       let _beginNode = this.nodeData[begin].position
       let _endNode   = end
 
-      let XType = (_endNode.left - _beginNode.left )  > 0 ? 'RIGHT' : 'LEFT'
-      let YType = (_endNode.top  - _beginNode.top )   > 0 ? 'BOTTOM' : 'TOP'
+      let XType = ( _endNode.left - _beginNode.left )  > 0 ? 'RIGHT'  : 'LEFT'
+      let YType = ( _endNode.top  - _beginNode.top  )  > 0 ? 'BOTTOM' : 'TOP'
       
       let _width  = Math.abs(_endNode.left - _beginNode.left)
       let _height = Math.abs(_endNode.top  - _beginNode.top)
       
       
-
       let _w = _width   // 相对x作差即为宽度
       let _h = _height   // 相对x作差即为高度
 

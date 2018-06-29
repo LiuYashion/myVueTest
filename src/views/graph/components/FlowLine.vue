@@ -1,17 +1,28 @@
 <template>
   <div class="flow-line" draggable="true" :style="nodeStyles">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg line-wrap" >
 
-      <marker id="markerArrow" markerWidth="13" markerHeight="13" refX="2" refY="3" orient="auto" markerUnits="strokeWidth">
+
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="svg line-wrap" >
+      <marker 
+        id="markerArrow" 
+        markerWidth="13" 
+        markerHeight="13" 
+        refX="2" 
+        refY="3" 
+        orient="auto" 
+        markerUnits="strokeWidth"
+      >
         <path d="M 0 0 L 9 4 L 0 9  L 3 4" style="fill:#fff;" transform="scale(0.7)"></path>
       </marker>
 
       <line 
-        :x1="nodeStyles._x1" :y1="nodeStyles._y1"  
-        :x2="nodeStyles._x2" :y2="nodeStyles._y2" 
-        style="stroke:#fff;stroke-width:2" marker-end='url(#markerArrow)'
+        :x1="nodeStyles.beg_x" 
+        :y1="nodeStyles.beg_y"  
+        :x2="nodeStyles.end_x" 
+        :y2="nodeStyles.end_y" 
+        style="stroke:#fff;stroke-width:2" 
+        marker-end='url(#markerArrow)'
       />
-      
     </svg>
 
     <span class="flow-line-info">
@@ -29,7 +40,12 @@ export default {
   name: 'tools',
   data(){
     return {
-
+      widthLock:false,
+      heightLock:false,
+      shadowBeginTop: null,
+      shadowBeginLeft: null,
+      shadowEndTop: null,
+      shadowEndLeft: null
     }
   },
   props:{
@@ -49,100 +65,150 @@ export default {
       let _beginNode = this.nodeData[begin].position
       let _endNode   = this.nodeData[end].position
 
+      /** 正在移动的节点 */
+      
+      let currentMoving = ''
+
+      let compareBT = (this.shadowBeginTop  - _beginNode.top)
+      let compareBL = (this.shadowBeginLeft - _beginNode.left)
+
+      let compareET = (this.shadowEndTop    - _endNode.top)
+      let compareEL = (this.shadowEndLeft   - _endNode.left)
+      
+
+      this.shadowBeginTop   = _beginNode.top
+      this.shadowBeginLeft  = _beginNode.left
+      this.shadowEndTop     = _endNode.top
+      this.shadowEndLeft    = _endNode.left
+
+      
+      if( compareBT == 0 && compareBL == 0 && compareET != 0 && compareEL != 0 ){
+        currentMoving = 'BEGIN'
+      } else if ( compareBT != 0 && compareBL != 0 && compareET == 0 && compareEL == 0 ) {
+        currentMoving = 'END'
+      } else {
+        
+      }
+
+
       /** 线头朝向 */
       let XType = (_endNode.left - _beginNode.left)  > 0 ? 'RIGHT' : 'LEFT'
       let YType = (_endNode.top  - _beginNode.top)   > 0 ? 'BOTTOM' : 'TOP'
       
-      let _width  = Math.abs(_endNode.left - _beginNode.left)
-      let _height = Math.abs(_endNode.top  - _beginNode.top)
+      let nail_width  = Math.abs(_endNode.left - _beginNode.left)
+      let nail_height = Math.abs(_endNode.top  - _beginNode.top)
       
-      let _w = _width    
-      let _h = _height  
 
-      /** 线框矩形的起点,取左上的那个点 */
-      let _y = Math.min(_beginNode.top,  _endNode.top)  + 20   // 加上偏移量 2/heigth  20
-      let _x = Math.min(_beginNode.left, _endNode.left) + 40   // 加上偏移量 2/width   40
+      /** 方框的top left坐标 */
+      let nail_top  = Math.min(_beginNode.top,  _endNode.top)  + 20   // 加上偏移量 2/heigth  20
+      let nail_left = Math.min(_beginNode.left, _endNode.left) + 40   // 加上偏移量 2/width   40
 
       let operator   = 45
 
       /** 宽高比,为避免误差取分子小于分母的数值 */
-      let _hw = this.toDouble(_h/_w)
-      let _wh = this.toDouble(_w/_h)
+      let _hw = this.toDouble(nail_height/nail_width)
+      let _wh = this.toDouble(nail_width/nail_height)
 
-      let _x2, _y2, _x1, _y1 = 0;
+      let end_x, end_y, beg_x, beg_y = 0;
       
+      let operNum, minType = 0
+
+      console.log(`-------------------------------->`)
+
+
+
       if(_hw <= 1){
 
-        _x2 = _w - operator
-        _y2 = _h - operator*_hw
-        _x1 = operator
-        _y1 = operator*_hw
+        /** height过小 */
+        end_x = nail_width - operator
+        end_y = nail_height - operator*_hw
+        beg_x = operator
+        beg_y = operator*_hw
+
+        
+
+        if( _hw < 0.2 ){
+          
+          nail_top = _beginNode.top - 40
+          nail_height = 120
+
+
+          
+          if(currentMoving === 'BEGIN'){
+            nail_top = _beginNode.top - 40
+            nail_height = 120
+          }else{
+            
+          }
+
+          
+          // top:    `${nail_top}px`,
+          // left:   `${nail_left}px`,
+          // width:  `${nail_width}px`,
+          // height: `${nail_height}px`,
+
+        } else {
+          
+        }
         
       }else{
 
-        _x2 = _w - operator*_wh
-        _y2 = _h - operator
-        _x1 = operator*_wh
-        _y1 = operator
+        /** width过小 */
+        end_x = nail_width - operator*_wh
+        end_y = nail_height - operator
+        beg_x = operator*_wh
+        beg_y = operator
         
+        if( _wh < 0.2){
+
+          // top:    `${nail_top}px`,
+          // left:   `${nail_left}px`,
+          // width:  `${nail_width}px`,
+          // height: `${nail_height}px`,
+
+
+        }
       }
 
+  
       /** x1, x2, y1, y2 */
       let Config
       
       const threshold = 30
       
-      // 当线框svg的情况下
-      if( _w < threshold || _h < threshold ){
 
-        // _w = Math.max(_w, threshold)
-        // _h = Math.max(_h, threshold)
-
-        // console.log(`loca: ${_x}, ${_y}`)
-        // console.log(`size: ${_w}, ${_h}`)
-
-        // _x = _x - this.toDouble(threshold/2)
-        // _y = _y - this.toDouble(threshold/2)
-        // _x1 = _x1 + this.toDouble(threshold/2)
-        // _x2 = _x2 + this.toDouble(threshold/2)
-        // _y1 = _y1 + this.toDouble(threshold/2)
-        // _y2 = _y2 + this.toDouble(threshold/2)
-
-        // -= this.toDouble(threshold/2)
-
-      }
 
       switch (`${XType}/${YType}`) {
         case 'RIGHT/TOP':
           Config = {
-            _x1:  `${_x1}px`,
-            _y1:  `${_y2}px`,
-            _x2:  `${_x2}px`,
-            _y2:  `${_y1}px`,
+            beg_x:  `${beg_x}px`,
+            beg_y:  `${end_y}px`,
+            end_x:  `${end_x}px`,
+            end_y:  `${beg_y}px`,
           }
           break;
         case 'RIGHT/BOTTOM':
           Config = {
-            _x1:  `${_x1}px`,
-            _y1:  `${_y1}px`,
-            _x2:  `${_x2}px`,
-            _y2:  `${_y2}px`,
+            beg_x:  `${beg_x}px`,
+            beg_y:  `${beg_y}px`,
+            end_x:  `${end_x}px`,
+            end_y:  `${end_y}px`,
           }
           break;
         case 'LEFT/TOP':
           Config = {
-            _x1:  `${_x2}px`,
-            _y1:  `${_y2}px`,
-            _x2:  `${_x1}px`,
-            _y2:  `${_y1}px`,
+            beg_x:  `${end_x}px`,
+            beg_y:  `${end_y}px`,
+            end_x:  `${beg_x}px`,
+            end_y:  `${beg_y}px`,
           }
           break;
         case 'LEFT/BOTTOM':
           Config = {
-            _x1:  `${_x2}px`,
-            _y1:  `${_y1}px`,
-            _x2:  `${_x1}px`,
-            _y2:  `${_y2}px`,
+            beg_x:  `${end_x}px`,
+            beg_y:  `${beg_y}px`,
+            end_x:  `${beg_x}px`,
+            end_y:  `${end_y}px`,
           }
           break;
       }
@@ -150,11 +216,11 @@ export default {
 
       return {
 
-        top:  `${_y}px`,
-        left: `${_x}px`,
+        top:    `${nail_top}px`,
+        left:   `${nail_left}px`,
 
-        width:  `${_w}px`,
-        height: `${_h}px`,
+        width:  `${nail_width}px`,
+        height: `${nail_height}px`,
 
         ...Config
       }

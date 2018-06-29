@@ -2,7 +2,7 @@
   <div class='cube-wrap'>
     <div 
       class='cube-box'
-      :style="nodePosition"  
+      :style="nodePosition1"  
       @mouseover="arrowPointEnter"
       @mouseleave="arrowPointLeave" 
       @drag="nodeDrag" 
@@ -12,8 +12,50 @@
       @mousedown="mouseDown"
       
       draggable="true"
-    >
-    </div> 
+    ></div> 
+
+    <div 
+      class='cube-box'
+      :style="nodePosition2"  
+      @mouseover="arrowPointEnter"
+      @mouseleave="arrowPointLeave" 
+      @drag="nodeDrag" 
+      @dragend="nodeDragEnd" 
+
+      @dragstart="nodeDragStart" 
+      @mousedown="mouseDown"
+      
+      draggable="true"
+    ></div> 
+
+    <div 
+      class='cube-box'
+      :style="nodePosition3"  
+      @mouseover="arrowPointEnter"
+      @mouseleave="arrowPointLeave" 
+      @drag="nodeDrag" 
+      @dragend="nodeDragEnd" 
+
+      @dragstart="nodeDragStart" 
+      @mousedown="mouseDown"
+      
+      draggable="true"
+    ></div> 
+
+    <div 
+      class='cube-box'
+      :style="nodePosition4"  
+      @mouseover="arrowPointEnter"
+      @mouseleave="arrowPointLeave" 
+      @drag="nodeDrag" 
+      @dragend="nodeDragEnd" 
+
+      @dragstart="nodeDragStart" 
+      @mousedown="mouseDown"
+      
+      draggable="true"
+    ></div> 
+
   </div>
 </template>
 
@@ -40,10 +82,28 @@ export default {
       'latestNode',
       'mouseState'
     ]),
-    nodePosition(){
+    nodePosition1(){
       return {
-        top:`${this.item.position.top}px`,
+        top:`${this.item.position.top + 15 }px`,
         left:`${this.item.position.left + 80}px`
+      }
+    },
+    nodePosition2(){
+      return {
+        top:`${this.item.position.top + 15 }px`,
+        left:`${this.item.position.left - 10 }px`
+      }
+    },
+    nodePosition3(){
+      return {
+        top:`${this.item.position.top - 10 }px`,
+        left:`${this.item.position.left + 35 }px`
+      }
+    },
+    nodePosition4(){
+      return {
+        top:`${this.item.position.top + 40 }px`,
+        left:`${this.item.position.left + 35}px`
       }
     },
     toolPosition(){
@@ -131,8 +191,9 @@ export default {
     position:absolute;
     width:10px;
     height:10px;
-    background:#c1daf5;
-    border-radius:4px;
+    background: transparent;
+    border: solid 1px #c1daf5;
+    border-radius:5px;
     li{
       background:#fae1d2;
       height:20px;

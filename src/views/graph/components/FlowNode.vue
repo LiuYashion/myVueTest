@@ -1,6 +1,7 @@
 <template>
   <div>
 
+    <!-- 节点内容 -->
     <flow-block  
       @arrowPointEnter="arrowPointEnter"
       @arrowPointLeave="arrowPointLeave" 
@@ -8,6 +9,7 @@
       :item="item"
     ></flow-block>
 
+    <!-- 节点周围拖拽的点 -->
     <flow-arrow 
       @arrowPointEnter="arrowPointEnter"
       @arrowPointLeave="arrowPointLeave" 
