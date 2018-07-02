@@ -7,6 +7,7 @@
       @arrowPointLeave="arrowPointLeave" 
       @nodeDragging="nodeDragging" 
       :item="item"
+      :class="item.type"
     ></flow-block>
 
     <!-- 节点周围拖拽的点 -->
@@ -112,5 +113,14 @@ export default {
     bottom: 0;
     left: 200px;
     background: #666;
+  }
+  .start{
+    background: #ffcece;
+  }
+  .decision{
+    background: #fdffc9;
+  }
+  .end{
+    background: #c3f5ff;
   }
 </style>

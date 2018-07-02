@@ -185,7 +185,6 @@ export default {
     text-align: center;
     line-height: 40px;
     height: 40px;
-    background: #e7c4bf;
   }
   .cube-box{
     position:absolute;
