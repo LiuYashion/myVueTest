@@ -113,8 +113,6 @@ export default {
       
       let operNum, minType = 0
 
-      console.log(`-------------------------------->`)
-
 
 
       if(_hw <= 1){
@@ -126,26 +124,14 @@ export default {
         beg_y = operator*_hw
 
         
-
-        if( _hw < 0.2 ){
+        /** 保证height连续变化 */
+        if( nail_height < 60 ){
           
           nail_top = _beginNode.top - 40
           nail_height = 120
+          end_y = end_y + 60
+          beg_y = beg_y + 60
 
-
-          
-          if(currentMoving === 'BEGIN'){
-            nail_top = _beginNode.top - 40
-            nail_height = 120
-          }else{
-            
-          }
-
-          
-          // top:    `${nail_top}px`,
-          // left:   `${nail_left}px`,
-          // width:  `${nail_width}px`,
-          // height: `${nail_height}px`,
 
         } else {
           
@@ -159,60 +145,22 @@ export default {
         beg_x = operator*_wh
         beg_y = operator
         
-        if( _wh < 0.2){
+        /** 保证height连续变化 */
+        if( nail_width < 60 ){
+          
+          nail_left = _beginNode.left - 20
+          nail_width = 120
+          end_y = end_y + 60
+          beg_y = beg_y + 60
 
-          // top:    `${nail_top}px`,
-          // left:   `${nail_left}px`,
-          // width:  `${nail_width}px`,
-          // height: `${nail_height}px`,
 
-
+        } else {
+          
         }
+
       }
 
   
-      /** x1, x2, y1, y2 */
-      let Config
-      
-      const threshold = 30
-      
-
-
-      switch (`${XType}/${YType}`) {
-        case 'RIGHT/TOP':
-          Config = {
-            beg_x:  `${beg_x}px`,
-            beg_y:  `${end_y}px`,
-            end_x:  `${end_x}px`,
-            end_y:  `${beg_y}px`,
-          }
-          break;
-        case 'RIGHT/BOTTOM':
-          Config = {
-            beg_x:  `${beg_x}px`,
-            beg_y:  `${beg_y}px`,
-            end_x:  `${end_x}px`,
-            end_y:  `${end_y}px`,
-          }
-          break;
-        case 'LEFT/TOP':
-          Config = {
-            beg_x:  `${end_x}px`,
-            beg_y:  `${end_y}px`,
-            end_x:  `${beg_x}px`,
-            end_y:  `${beg_y}px`,
-          }
-          break;
-        case 'LEFT/BOTTOM':
-          Config = {
-            beg_x:  `${end_x}px`,
-            beg_y:  `${beg_y}px`,
-            end_x:  `${beg_x}px`,
-            end_y:  `${end_y}px`,
-          }
-          break;
-      }
-
 
       return {
 
@@ -222,7 +170,10 @@ export default {
         width:  `${nail_width}px`,
         height: `${nail_height}px`,
 
-        ...Config
+        beg_x:  `${beg_x}px`,
+        beg_y:  `${beg_y}px`,
+        end_x:  `${end_x}px`,
+        end_y:  `${end_y}px`,
       }
 
     }
