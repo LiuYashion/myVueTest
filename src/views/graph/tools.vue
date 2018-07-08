@@ -6,8 +6,9 @@
           draggable="true" 
           @mousedown="selectNode(item)" 
           @dragstart="dragNode(item)"
+          :class="item.type"
         >
-          {{item.title}}
+          {{item.type}}
         </div>
       </li>
     </ul>
@@ -81,10 +82,20 @@ export default {
       line-height: 40px;
       text-align: center;
       border-radius: 4px;
-      background: lightcyan;
     }
   }
   .debug-info{
     padding:20px
+  }
+  
+
+  .start{
+    background: #ffcece;
+  }
+  .decision{
+    background: #fdffc9;
+  }
+  .end{
+    background: #c3f5ff;
   }
 </style>

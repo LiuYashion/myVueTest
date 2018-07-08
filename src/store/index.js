@@ -57,30 +57,30 @@ export default new Vuex.Store({
       },
     },
     linkData:{
-      // 'L&001':{
-      //   begin:'N&1', end:'N&2', content:''
-      // },
-      // 'L&002':{
-      //   begin:'N&2', end:'N&5', content:''
-      // },
-      // 'L&003':{
-      //   begin:'N&5', end:'N&4', content:''
-      // },
-      // 'L&004':{
-      //   begin:'N&4', end:'N&1', content:''
-      // },
-      // 'L&005':{
-      //   begin:'N&3', end:'N&1', content:''
-      // },
-      // 'L&006':{
-      //   begin:'N&3', end:'N&2', content:''
-      // },
+      'L&001':{
+        begin:'N&1', end:'N&2', content:''
+      },
+      'L&002':{
+        begin:'N&2', end:'N&5', content:''
+      },
+      'L&003':{
+        begin:'N&5', end:'N&4', content:''
+      },
+      'L&004':{
+        begin:'N&4', end:'N&1', content:''
+      },
+      'L&005':{
+        begin:'N&3', end:'N&1', content:''
+      },
+      'L&006':{
+        begin:'N&3', end:'N&2', content:''
+      },
       'L&007':{
         begin:'N&3', end:'N&4', content:''
       },
-      // 'L&008':{
-      //   begin:'N&3', end:'N&5', content:''
-      // },
+      'L&008':{
+        begin:'N&3', end:'N&5', content:''
+      },
     },
     name: 'weish',
     age: 22

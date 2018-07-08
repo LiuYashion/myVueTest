@@ -90,7 +90,6 @@ export default {
     text-align: center;
     line-height: 40px;
     height: 40px;
-    background: lightgoldenrodyellow;
   }
   .cube-box{
     position:absolute;

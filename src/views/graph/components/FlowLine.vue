@@ -33,186 +33,229 @@
 </template>
 
 <script>
-
-import { mapMutations, mapState } from 'vuex';
+import { mapMutations, mapState } from "vuex";
 
 export default {
-  name: 'tools',
-  data(){
+  name: "tools",
+  data() {
     return {
-      widthLock:false,
-      heightLock:false,
+      widthLock: false,
+      heightLock: false,
       shadowBeginTop: null,
       shadowBeginLeft: null,
       shadowEndTop: null,
       shadowEndLeft: null
-    }
+    };
   },
-  props:{
+  props: {
     item: {
       type: Object
     }
   },
-  computed:{
-    ...mapState([
-      'nodeData',
-    ]),
-    nodeStyles(){
+  computed: {
+    ...mapState(["nodeData"]),
+    nodeStyles() {
+      let { begin, end } = this.item;
 
-      
-      let { begin, end } = this.item
-
-      let _beginNode = this.nodeData[begin].position
-      let _endNode   = this.nodeData[end].position
+      let _beginNode = this.nodeData[begin].position;
+      let _endNode = this.nodeData[end].position;
 
       /** 正在移动的节点 */
-      
-      let currentMoving = ''
 
-      let compareBT = (this.shadowBeginTop  - _beginNode.top)
-      let compareBL = (this.shadowBeginLeft - _beginNode.left)
+      let currentMoving = "";
 
-      let compareET = (this.shadowEndTop    - _endNode.top)
-      let compareEL = (this.shadowEndLeft   - _endNode.left)
-      
+      let compareBT = this.shadowBeginTop - _beginNode.top;
+      let compareBL = this.shadowBeginLeft - _beginNode.left;
 
-      this.shadowBeginTop   = _beginNode.top
-      this.shadowBeginLeft  = _beginNode.left
-      this.shadowEndTop     = _endNode.top
-      this.shadowEndLeft    = _endNode.left
+      let compareET = this.shadowEndTop - _endNode.top;
+      let compareEL = this.shadowEndLeft - _endNode.left;
 
-      
-      if( compareBT == 0 && compareBL == 0 && compareET != 0 && compareEL != 0 ){
-        currentMoving = 'BEGIN'
-      } else if ( compareBT != 0 && compareBL != 0 && compareET == 0 && compareEL == 0 ) {
-        currentMoving = 'END'
+      this.shadowBeginTop = _beginNode.top;
+      this.shadowBeginLeft = _beginNode.left;
+      this.shadowEndTop = _endNode.top;
+      this.shadowEndLeft = _endNode.left;
+
+      if (
+        compareBT == 0 &&
+        compareBL == 0 &&
+        compareET != 0 &&
+        compareEL != 0
+      ) {
+        currentMoving = "BEGIN";
+      } else if (
+        compareBT != 0 &&
+        compareBL != 0 &&
+        compareET == 0 &&
+        compareEL == 0
+      ) {
+        currentMoving = "END";
       } else {
-        
       }
 
-
       /** 线头朝向 */
-      let XType = (_endNode.left - _beginNode.left)  > 0 ? 'RIGHT' : 'LEFT'
-      let YType = (_endNode.top  - _beginNode.top)   > 0 ? 'BOTTOM' : 'TOP'
-      
-      let nail_width  = Math.abs(_endNode.left - _beginNode.left)
-      let nail_height = Math.abs(_endNode.top  - _beginNode.top)
-      
+      let XType = _endNode.left - _beginNode.left > 0 ? "RIGHT" : "LEFT";
+      let YType = _endNode.top - _beginNode.top > 0 ? "BOTTOM" : "TOP";
+
+      let nail_width = Math.abs(_endNode.left - _beginNode.left);
+      let nail_height = Math.abs(_endNode.top - _beginNode.top);
 
       /** 方框的top left坐标 */
-      let nail_top  = Math.min(_beginNode.top,  _endNode.top)  + 20   // 加上偏移量 2/heigth  20
-      let nail_left = Math.min(_beginNode.left, _endNode.left) + 40   // 加上偏移量 2/width   40
+      let nail_top = Math.min(_beginNode.top, _endNode.top) + 20; // 加上偏移量 2/heigth  20
+      let nail_left = Math.min(_beginNode.left, _endNode.left) + 40; // 加上偏移量 2/width   40
 
-      let operator   = 45
+      let operator = 45;
 
       /** 宽高比,为避免误差取分子小于分母的数值 */
-      let _hw = this.toDouble(nail_height/nail_width)
-      let _wh = this.toDouble(nail_width/nail_height)
+      let _hw = this.toDouble(nail_height / nail_width);
+      let _wh = this.toDouble(nail_width / nail_height);
 
-      let end_x, end_y, beg_x, beg_y = 0;
-      
-      let operNum, minType = 0
+      let end_x,
+        end_y,
+        beg_x,
+        beg_y = 0;
 
+      let operNum,
+        minType = 0;
 
+      /** XType  YType */
 
-      if(_hw <= 1){
+      if (_hw <= 1) {
+        
+
+        if (XType == "RIGHT") {
+          beg_x = operator ;
+          end_x = nail_width - operator;
+        } else {
+          beg_x = nail_width - operator;
+          end_x = operator;
+        }
+
+        if (YType == "BOTTOM") {
+          beg_y = operator * _hw;
+          end_y = nail_height - operator * _hw;
+        } else {
+          beg_y = nail_height - operator * _hw;
+          end_y = operator * _hw;
+        }
 
         /** height过小 */
-        end_x = nail_width - operator
-        end_y = nail_height - operator*_hw
-        beg_x = operator
-        beg_y = operator*_hw
-
-        
-        /** 保证height连续变化 */
         if( nail_height < 60 ){
-          
           nail_top = _beginNode.top - 40
           nail_height = 120
           end_y = end_y + 60
           beg_y = beg_y + 60
 
-
-        } else {
           
+
+          if (YType == "BOTTOM") {
+            beg_y = beg_y + 60
+            end_y = end_y + 60
+          } else {
+            beg_y = 60 - operator * _hw;
+            end_y = 60 - nail_width * _hw + operator * _hw;
+          }
+
+
+          if(currentMoving === 'BEGIN'){
+
+          }else{
+
+          }
+
+
         }
+      } else {
         
-      }else{
+
+        if (XType == "RIGHT") {
+          beg_x = operator * _wh;
+          end_x = nail_width - operator * _wh;
+        } else {
+          beg_x = nail_width - operator * _wh;
+          end_x = operator * _wh;
+        }
+
+        if (YType == "BOTTOM") {
+          end_y = nail_height - operator;
+          beg_y = operator;
+        } else {
+          end_y = operator;
+          beg_y = nail_height - operator;
+        }
 
         /** width过小 */
-        end_x = nail_width - operator*_wh
-        end_y = nail_height - operator
-        beg_x = operator*_wh
-        beg_y = operator
-        
-        /** 保证height连续变化 */
         if( nail_width < 60 ){
-          
+
           nail_left = _beginNode.left - 20
           nail_width = 120
-          end_y = end_y + 60
-          beg_y = beg_y + 60
 
 
-        } else {
-          
-        }
-
-      }
+          if (XType == "RIGHT") {
+            beg_x = 60 + operator * _wh;
+            end_x = 60 + (nail_height - operator)* _wh;
+          } else {
+            beg_x = 60 - operator * _wh;
+            end_x = 60 - (nail_height - operator) * _wh;
+          }
 
   
 
-      return {
 
-        top:    `${nail_top}px`,
-        left:   `${nail_left}px`,
+          if(currentMoving === 'BEGIN'){
 
-        width:  `${nail_width}px`,
-        height: `${nail_height}px`,
+          }else{
 
-        beg_x:  `${beg_x}px`,
-        beg_y:  `${beg_y}px`,
-        end_x:  `${end_x}px`,
-        end_y:  `${end_y}px`,
+          }
+        }
       }
 
+      return {
+        top: `${nail_top}px`,
+        left: `${nail_left}px`,
+
+        width: `${nail_width}px`,
+        height: `${nail_height}px`,
+
+        beg_x: `${beg_x}px`,
+        beg_y: `${beg_y}px`,
+        end_x: `${end_x}px`,
+        end_y: `${end_y}px`
+      };
     }
   },
-  methods:{
-    ...mapMutations([
-      'SET_GLOBAL_NODE',
-    ]),
-    toDouble(value){
-      return Math.round(value* 100) / 100
+  methods: {
+    ...mapMutations(["SET_GLOBAL_NODE"]),
+    toDouble(value) {
+      return Math.round(value * 100) / 100;
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-  .flow-line{
-    width: 80px;
-    position: absolute;
-    z-index:10;
-    text-align: center;
-    line-height: 40px;
-    height: 40px;
-  }
-  .flow-line-info{
-    position:absolute;
-    width:200px;
-    transform:translate(50%, 50%);
-    right:50%;
-    bottom:50%;
-  }
-  .svg{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width:100%;
-    height:100%;
-  }
-  .line-wrap{
-    background: #caa7a72e
-  }
+.flow-line {
+  width: 80px;
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  line-height: 40px;
+  height: 40px;
+}
+.flow-line-info {
+  position: absolute;
+  width: 200px;
+  transform: translate(50%, 50%);
+  right: 50%;
+  bottom: 50%;
+}
+.svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.line-wrap {
+  background: transparent;
+}
 </style>
